@@ -15,8 +15,17 @@
 		//获得热门用户
 		public function hot_user($category = '最新'){
 			$newest = json_decode(file_get_contents('https://movie.douban.com/j/search_subjects?type=movie&tag='.urlencode($category).'&page_limit=1000&page_start=0'),true);
-			$main = self::movie_info($newest['subjects'][0]['url']);
-			return $main;
+			$user = array();
+			foreach ($newest['subjects'] as $key => $value) {
+				$content = self::movie_info($value['url']);
+				$commentPartern = '/<span class="comment-info">                <a href="https:\/\/www.douban.com\/people\/([^<>]+)\/" class="">([^<>]+)<\/a>                    <span class="([^<>]+)" title="([^<>]+)"><\/span>                <span class="">                    ([^<>]+)                <\/span>            <\/span>/';
+				preg_match_all($commentPartern,$content,$commentResult);
+				foreach ($commentResult[1] as $key => $value) {
+				  	array_push($user, $value);
+				}  
+				sleep(0.1);
+			}
+			return $user;
     	}
     	public function movie_info($movie_url){
 			$content = file_get_contents($movie_url);
@@ -29,13 +38,62 @@
 			$writerPartern = '/<a href="\/celebrity\/([^r]+)">([^<>]+)<\/a>/';
 			//演员
 			$actorPartern = '/<a href="([^<>]+)" rel="v:starring">([^<>]+)<\/a>/';
-			//编剧
-			$typePartern = '/<span property="v:genre">([^<>]+)<\/span>/'
+			//类型
+			$typePartern = '/<span property="v:genre">([^<>]+)<\/span>/';
+			//封面,id
+			$coverPartern = '/<img src="([^<>]+)" title="点击看更多海报" alt="([^<>]+)" rel="v:image" \/>/';
+			//上映时间
+			$initialPartern = '/<span property="v:initialReleaseDate" content="([^<>]+)">/';
+			//语言
+			$languagePartern = '/<span class="pl">语言:<\/span> ([^<>]+)<br\/>/';
+			//又名
+			$nicknamePartern = '/<span class="pl">又名:<\/span> ([^<>]+)<br\/>/';
+			//评分
+			$ratingPartern = '/<strong class="ll rating_num" property="v:average">([^<>]+)<\/strong>/';
+			//imdb
+			$imdbPartern = '/IMDb链接:<\/span> <a href="([^<>]+)" target="_blank" rel="nofollow">/';
+			//官网
+			$officialPartern = '/官方网站:<\/span> <a href="([^<>]+)" rel="nofollow" target="_blank">/';
 			preg_match_all($titlePartern,$main,$titleResult); 
+			unset($titleResult[0]);
 			preg_match_all($directorPartern,$main,$directorResult);
+			unset($directorResult[0]);
 			preg_match_all($writerPartern,$main,$writerResult);
+			unset($writerResult[0]);
 			preg_match_all($actorPartern,$main,$actorResult); 
-			return $writerResult;
+			unset($actorResult[0]);
+			preg_match_all($typePartern,$main,$typeResult); 
+			unset($typeResult[0]);
+			preg_match_all($coverPartern,$main,$coverResult); 
+			unset($coverResult[0]);
+			preg_match_all($initialPartern,$main,$initialResult); 
+			unset($initialResult[0]);
+			preg_match_all($languagePartern,$main,$languageResult); 
+			unset($languageResult[0]);
+			preg_match_all($nicknamePartern,$main,$nicknameResult);
+			unset($nicknameResult[0]);
+			preg_match_all($ratingPartern,$main,$ratingResult);
+			unset($ratingResult[0]);
+			preg_match_all($imdbPartern,$main,$imdbResult); 
+			unset($imdbResult[0]);
+			preg_match_all($officialPartern,$main,$officialResult); 
+			unset($officialResult[0]);
+			$sql = "select * from info where mid = '".$coverResult[2][0]."'";
+			$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 73'.mysql_error());
+			$row=mysql_fetch_row($rs);
+			if($row!== false)
+			{
+				return;
+			}
+			$sql = "insert into info (title,year,director,writer,actor,type,mid,cover,initial,language,nickname,rating,imdb,official) values('".mysql_escape_string($titleResult[1][0])."','"
+				.mysql_escape_string($titleResult[2][0])."','".mysql_escape_string(json_encode($directorResult))."','".mysql_escape_string(json_encode($writerResult))."','"
+				.mysql_escape_string(json_encode($actorResult))."','".mysql_escape_string(json_encode($typeResult))."','".mysql_escape_string($coverResult[2][0])."','"
+				.mysql_escape_string($coverResult[1][0])."','".mysql_escape_string(json_encode($initialResult))."','".mysql_escape_string($languageResult[1][0])."','"
+				.mysql_escape_string($nicknameResult[1][0])."','".mysql_escape_string($ratingResult[1][0])."','".mysql_escape_string($imdbResult[1][0])."','".mysql_escape_string($officialResult[1][0])."');";
+			//var_dump($sql);
+			//exit();
+			$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 84'.mysql_error());
+			return $main;
     	}
     	//获取评论
     	public function rating($uid){   

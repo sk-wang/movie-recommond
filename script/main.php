@@ -1,7 +1,9 @@
 <?php
 	require_once('Movie.class.php');
 	$movie = new Movie();
-	var_dump($movie->hot_user());
-	//$movie->rating('121916264');
-	//rating('CharlesChou');
+	$user = $movie->hot_user('经典');
+	echo('开始抓评论');
+	foreach ($user as $key => $value) {
+		$movie->rating($value);
+	}
 ?>
