@@ -5,13 +5,65 @@
 		private $mysql_password=""; // 连接数据库密码
 		private $mysql_database="movie"; // 数据库的名字
 		private $conn;
+		private $cookie_file;
 		function __construct(){
-			 // 连接到数据库
-
+			//模拟登陆
+			$this->cookie_file = dirname(__FILE__).'/cookie.txt';
+			if(!file_exists($this->cookie_file))
+			{
+    			$login_data = array('source'=>'movie','redir'=>'https://movie.douban.com/celebrity/1274240/','form_email'=>'378681741@qq.com','form_password'=>'0412yxyxys','login'=>'登录','remember'=>'on');
+				self::http_post($login_data,'https://accounts.douban.com/login');
+			}
+			// 连接到数据库
 			$this->conn=mysql_connect($this->mysql_server_name, $this->mysql_username,
 		                        $this->mysql_password) or die('failed'); 
 		    mysql_query("set names 'utf8'");
 		}
+		private function http_post($post_data,$url){
+			$o = "" ;
+			foreach ( $post_data as $k => $v ) 
+			{ 
+     			$o .= "$k=" . urlencode ( $v ) . "&" ;
+			} 
+			$post_data = substr ( $o , 0 ,- 1 ) ;
+			$ch = curl_init () ;
+			curl_setopt ( $ch , CURLOPT_POST , 1 ) ;
+			curl_setopt ( $ch , CURLOPT_HEADER , 0 ) ;
+			curl_setopt ( $ch , CURLOPT_URL , $url ) ;
+			//为了支持cookie 
+			curl_setopt ( $ch , CURLOPT_COOKIEJAR , $this->cookie_file ) ;
+			curl_setopt ( $ch , CURLOPT_POSTFIELDS , $post_data ) ;
+			$result = curl_exec ( $ch ) ;
+			curl_close($ch);
+			return $result;
+		}
+		private function http_get($url){
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_HEADER, 0);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookie_file); //使用上面获取的cookies
+			$response = curl_exec($ch);	
+			curl_close($ch);
+			return $response;
+		}
+		//获得所有评论中的电影url
+		public function rating_movie(){
+			$sql = "SELECT DISTINCT `mid` FROM `comment`";
+			$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 18'.mysql_error());
+			$url = array();
+			while ($result=mysql_fetch_assoc($rs)) {
+				array_push($url,$result['mid']);
+			}	
+			return $url;
+		}
+		//用户信息
+		public function user_info($uid){
+			$content = file_get_contents('https://www.douban.com/people/'.$uid.'/');
+			$main = preg_replace("/[\t\n\r]+/","",$content);
+			var_dump($main);
+			exit();
+			return $user;
+    	}
 		//获得热门用户
 		public function hot_user($category = '最新'){
 			$newest = json_decode(file_get_contents('https://movie.douban.com/j/search_subjects?type=movie&tag='.urlencode($category).'&page_limit=1000&page_start=0'),true);
@@ -28,10 +80,19 @@
 			return $user;
     	}
     	public function movie_info($movie_url){
-			$content = file_get_contents($movie_url);
+    		$sql = "select * from info where douban = '".mysql_escape_string($movie_url)."'";
+			$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 50'.mysql_error());
+			$row=mysql_fetch_row($rs);
+			if($row!== false)
+			{
+				return;
+			}
+			$content = self::http_get($movie_url);
 			$main = preg_replace("/[\t\n\r]+/","",$content); 
-			$titlePartern = '/<div id="content">            <h1>        <span property="v:itemreviewed">([^<>]+)<\/span>            <span class="year">([^<>]+)<\/span>/';
+			$titlePartern = '/<span property="v:itemreviewed">([^<>]+)<\/span>/';
 			//$infoPartern = '/<span ><span class=\'pl\'>导演<\/span>: <span class=\'attrs\'><a href="([^<>]+)" rel="v:directedBy">([^<>]+)<\/a><\/span><\/span><br\/>       <span class="actor"><span class=\'pl\'>主演<\/span>: <span class=\'attrs\'>(.+)<\/span><\/span><br\/>/';
+			//年份
+			$yearPartern = '/<span class="year">([^<>]+)<\/span>/';
 			//导演
 			$directorPartern = '/<a href="([^<>]+)" rel="v:directedBy">([^<>]+)<\/a>/';
 			//编剧
@@ -56,6 +117,8 @@
 			$officialPartern = '/官方网站:<\/span> <a href="([^<>]+)" rel="nofollow" target="_blank">/';
 			preg_match_all($titlePartern,$main,$titleResult); 
 			unset($titleResult[0]);
+			preg_match_all($yearPartern,$main,$yearResult); 
+			unset($yearResult[0]);
 			preg_match_all($directorPartern,$main,$directorResult);
 			unset($directorResult[0]);
 			preg_match_all($writerPartern,$main,$writerResult);
@@ -78,27 +141,27 @@
 			unset($imdbResult[0]);
 			preg_match_all($officialPartern,$main,$officialResult); 
 			unset($officialResult[0]);
-			$sql = "select * from info where mid = '".$coverResult[2][0]."'";
-			$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 73'.mysql_error());
-			$row=mysql_fetch_row($rs);
-			if($row!== false)
-			{
-				return;
-			}
-			$sql = "insert into info (title,year,director,writer,actor,type,mid,cover,initial,language,nickname,rating,imdb,official) values('".mysql_escape_string($titleResult[1][0])."','"
-				.mysql_escape_string($titleResult[2][0])."','".mysql_escape_string(json_encode($directorResult))."','".mysql_escape_string(json_encode($writerResult))."','"
+			$sql = "insert into info (title,year,director,writer,actor,type,mid,cover,initial,language,nickname,rating,imdb,official,douban) values('".mysql_escape_string($titleResult[1][0])."','"
+				.mysql_escape_string($yearResult[1][0])."','".mysql_escape_string(json_encode($directorResult))."','".mysql_escape_string(json_encode($writerResult))."','"
 				.mysql_escape_string(json_encode($actorResult))."','".mysql_escape_string(json_encode($typeResult))."','".mysql_escape_string($coverResult[2][0])."','"
 				.mysql_escape_string($coverResult[1][0])."','".mysql_escape_string(json_encode($initialResult))."','".mysql_escape_string($languageResult[1][0])."','"
-				.mysql_escape_string($nicknameResult[1][0])."','".mysql_escape_string($ratingResult[1][0])."','".mysql_escape_string($imdbResult[1][0])."','".mysql_escape_string($officialResult[1][0])."');";
-			//var_dump($sql);
-			//exit();
+				.mysql_escape_string($nicknameResult[1][0])."','".mysql_escape_string($ratingResult[1][0])."','".mysql_escape_string($imdbResult[1][0])."','".mysql_escape_string($officialResult[1][0])."','"
+				.mysql_escape_string($movie_url)."');";
 			$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 84'.mysql_error());
 			return $main;
     	}
     	//获取评论
-    	public function rating($uid){   
+    	public function rating($uid){
+    		$sql = "select * from comment where uid = '".$uid."'";
+			$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 39'.mysql_error());
+			$row=mysql_fetch_row($rs);
+			if($row!== false)
+			{
+				return;
+			}   
 			$page = 1;
 			$main = '';
+			printf('%s\n',$uid);
 			while(true){
 				$offset = $page == 1 ? 1 : ($page - 1) * 15 ; 
 				$content = file_get_contents('https://movie.douban.com/people/'.$uid.'/collect?start='.$offset.'&sort=time&rating=all&filter=all&mode=grid');
@@ -111,6 +174,7 @@
 				sleep(0.1);
 				$page++; 
 			}
+			printf('\n');
 			//echo $main;
 			$partern1='/<div class="item" >            <div class="pic">                <a title="([^<>]+)" href="([^<>]+)" class="nbg">                    <img alt="([^<>]+)" src="([^<>]+)" class="">                <\/a>            <\/div>            <div class="info">                <ul>                    <li class="title">                        <a href="([^<>]+)" class="">                            <em>([^<>]+)<\/em>                             ([^<>]+)                        <\/a>                    <\/li>                        <li class="intro">([^<>]+)<\/li>                    <li>                                    <span class="([^<>]+)"><\/span>                        <span class="date">([^<>]+)<\/span>                                                    <span class="tags">([^<>]+)<\/span>                    <\/li>                    <li>                        <span class="comment">([^<>]+)<\/span>                                            <\/li>                <\/ul>            <\/div>        <\/div>/';
 			//有用
@@ -130,7 +194,7 @@
 			if(!empty($result[0])){
 				for($i=0;$i<count($result[0]);$i++){
 					//检查是否有旧数据
-					$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
+					/*$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
 					$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 39'.mysql_error());
 					$row=mysql_fetch_row($rs);
 					if($row!== false)
@@ -138,7 +202,7 @@
 						//删除旧数据
 						$sql = "delete from comment where id = ".$row[0];
 						$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 45'.mysql_error());
-					}
+					}*/
 					$sql = "insert into comment (uid,mname_key,mid,mimg,mname,mnickname,minfo,rating,date,tag,content) values('".$uid."','"
 						   .$result[1][$i]."','".$result[2][$i]."','".$result[4][$i]."','"
 						   .$result[6][$i]."','".$result[7][$i]."','".$result[8][$i]."','"
@@ -155,7 +219,7 @@
 			if(!empty($result[0])){
 				for($i=0;$i<count($result[0]);$i++){
 					//检查是否有旧数据
-					$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
+					/*$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
 					$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 53'.mysql_error());
 					$row=mysql_fetch_row($rs);
 					if($row !== false)
@@ -163,7 +227,7 @@
 						//删除旧数据
 						$sql = "delete from comment where id = ".$row[0];
 						$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 59 '.mysql_error());
-					}
+					}*/
 					$sql = "insert into comment (uid,mname_key,mid,mimg,mname,mnickname,minfo,rating,date,tag,content,remark) values('".$uid."','"
 						   .$result[1][$i]."','".$result[2][$i]."','".$result[4][$i]."','"
 						   .$result[6][$i]."','".$result[7][$i]."','".$result[8][$i]."','"
@@ -180,7 +244,7 @@
 			if(!empty($result[0])){
 				for($i=0;$i<count($result[0]);$i++){
 					//检查是否有旧数据
-					$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
+					/*$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
 					$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 53'.mysql_error());
 					$row=mysql_fetch_row($rs);
 					if($row !== false)
@@ -188,7 +252,7 @@
 						//删除旧数据
 						$sql = "delete from comment where id = ".$row[0];
 						$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 95 '.mysql_error());
-					}
+					}*/
 					$sql = "insert into comment (uid,mname_key,mid,mimg,mname,mnickname,minfo,rating,date,tag,content,remark) values('".$uid."','"
 						   .$result[1][$i]."','".$result[2][$i]."','".$result[4][$i]."','"
 						   .$result[6][$i]."','".$result[7][$i]."','".$result[9][$i]."','"
@@ -205,7 +269,7 @@
 			if(!empty($result[0])){
 				for($i=0;$i<count($result[0]);$i++){
 					//检查是否有旧数据
-					$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
+					/*$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
 					$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 53'.mysql_error());
 					$row=mysql_fetch_row($rs);
 					if($row !== false)
@@ -213,7 +277,7 @@
 						//删除旧数据
 						$sql = "delete from comment where id = ".$row[0];
 						$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 120 '.mysql_error());
-					}
+					}*/
 					$sql = "insert into comment (uid,mname_key,mid,mimg,mname,mnickname,minfo,rating,date,tag,content) values('".$uid."','"
 						   .$result[1][$i]."','".$result[2][$i]."','".$result[4][$i]."','"
 						   .$result[6][$i]."','','".$result[7][$i]."','"
@@ -230,7 +294,7 @@
 			if(!empty($result[0])){
 				for($i=0;$i<count($result[0]);$i++){
 					//检查是否有旧数据
-					$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
+					/*$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
 					$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 143'.mysql_error());
 					$row=mysql_fetch_row($rs);
 					if($row !== false)
@@ -238,7 +302,7 @@
 						//删除旧数据
 						$sql = "delete from comment where id = ".$row[0];
 						$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 149 '.mysql_error());
-					}
+					}*/
 					$sql = "insert into comment (uid,mname_key,mid,mimg,mname,mnickname,minfo,rating,date,tag,content) values('".$uid."','"
 						   .$result[1][$i]."','".$result[2][$i]."','".$result[4][$i]."','"
 						   .$result[6][$i]."','".$result[7][$i]."','".$result[8][$i]."','"
@@ -254,7 +318,7 @@
 			if(!empty($result[0])){
 				for($i=0;$i<count($result[0]);$i++){
 					//检查是否有旧数据
-					$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
+					/*$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
 					$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 143'.mysql_error());
 					$row=mysql_fetch_row($rs);
 					if($row !== false)
@@ -262,7 +326,7 @@
 						//删除旧数据
 						$sql = "delete from comment where id = ".$row[0];
 						$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 149 '.mysql_error());
-					}
+					}*/
 					$sql = "insert into comment (uid,mname_key,mid,mimg,mname,mnickname,minfo,rating,date,tag,content,remark) values('".$uid."','"
 						   .$result[1][$i]."','".$result[2][$i]."','".$result[4][$i]."','"
 						   .$result[6][$i]."','".$result[7][$i]."','".$result[9][$i]."','"
@@ -278,7 +342,7 @@
 			if(!empty($result[0])){
 				for($i=0;$i<count($result[0]);$i++){
 					//检查是否有旧数据
-					$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
+					/*$sql = "select * from comment where uid = '".$uid."' and mid = '".$result[2][$i]."'";
 					$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 143'.mysql_error());
 					$row=mysql_fetch_row($rs);
 					if($row !== false)
@@ -286,7 +350,7 @@
 						//删除旧数据
 						$sql = "delete from comment where id = ".$row[0];
 						$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 149 '.mysql_error());
-					}
+					}*/
 					$sql = "insert into comment (uid,mname_key,mid,mimg,mname,mnickname,minfo,rating,date,tag,content,remark) values('".$uid."','"
 						   .$result[1][$i]."','".$result[2][$i]."','".$result[4][$i]."','"
 						   .$result[6][$i]."','','".$result[8][$i]."','"
