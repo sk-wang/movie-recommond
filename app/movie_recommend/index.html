@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<body>
+	<div class="mui-content">
+		<h1 style="margin-left: 25%;margin-top: 35%;margin-bottom: 20%;">欢迎来到尔影
+		</h1>	
+		<form class="mui-input-group" style="margin-left: 3%;margin-top: 25%;margin-right:3%;">
+			<div class="mui-input-row" >
+				<input id="account" type="text" placeholder="账号"/>
+			</div>
+			<div class="mui-input-row" >
+				<input id="password" type="password" placeholder="密码"/>	
+			</div>
+		</form>
+		<div class="mui-content-padded" style="margin-top: 10%;">
+			<button id='login' class="mui-btn mui-btn-block mui-btn-primary" style="padding: 3%;">登录</button>
+		</div>
+		<div class="mui-content" style="margin-top: 50%;">
+			<a style="color:#A9A9A9;margin-left: 31%;">免注册登录|</a><a style="color:rgb(169,169,169);">忘记密码</a>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+	document.getElementById('login').addEventListener('tap', function(event) {
+		mui.openWindow({
+			url: 'recommend.html',
+			id: 'recommend',
+			styles:{
+				hardwareAccelerated:true
+			},
+			waiting: {
+				autoShow: false
+			}
+		});
+	}, false);
+</script>
+</html>

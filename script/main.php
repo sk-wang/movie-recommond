@@ -10,7 +10,6 @@
 	$url = $movie->rating_movie();
 	foreach ($url as $key => $value) {
 		$movie->movie_info($value);
-		sleep(0.1);
 	}
 	var_dump('finished');
 ?>

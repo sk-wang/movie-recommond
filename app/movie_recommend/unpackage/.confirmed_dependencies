@@ -1,0 +1,21 @@
+{
+	"index.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"img/logo.png"
+		],
+		"refer": [
+			"recommend.html"
+		]
+	},
+	"recommend.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"img/cover.jpg",
+			"img/yes.png"
+		],
+		"refer": []
+	}
+}

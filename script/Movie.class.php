@@ -6,6 +6,7 @@
 		private $mysql_database="movie"; // 数据库的名字
 		private $conn;
 		private $cookie_file;
+		private $exist = 0;
 		function __construct(){
 			//模拟登陆
 			$this->cookie_file = dirname(__FILE__).'/cookie.txt';
@@ -85,6 +86,7 @@
 			$row=mysql_fetch_row($rs);
 			if($row!== false)
 			{
+				var_dump('已存在'.(++$this->exist));
 				return;
 			}
 			$content = self::http_get($movie_url);
@@ -115,6 +117,10 @@
 			$imdbPartern = '/IMDb链接:<\/span> <a href="([^<>]+)" target="_blank" rel="nofollow">/';
 			//官网
 			$officialPartern = '/官方网站:<\/span> <a href="([^<>]+)" rel="nofollow" target="_blank">/';
+			//剧照
+			$photoPartern = '/<img src="([^<>]+)" alt="图片" \/>/';
+			//预告片
+			$trailerPartern = '/<a class="related-pic-video" href="([^<>]+)">                        <span><\/span>                        <img src="([^<>]+)" width="([^<>]+)" height="([^<>]+)" alt="预告片" \/>/';
 			preg_match_all($titlePartern,$main,$titleResult); 
 			unset($titleResult[0]);
 			preg_match_all($yearPartern,$main,$yearResult); 
@@ -141,12 +147,25 @@
 			unset($imdbResult[0]);
 			preg_match_all($officialPartern,$main,$officialResult); 
 			unset($officialResult[0]);
-			$sql = "insert into info (title,year,director,writer,actor,type,mid,cover,initial,language,nickname,rating,imdb,official,douban) values('".mysql_escape_string($titleResult[1][0])."','"
+			preg_match_all($photoPartern,$main,$photoResult); 
+			unset($photoResult[0]);
+			preg_match_all($trailerPartern,$main,$trailerResult); 
+			unset($trailerResult[0]);
+			//用字符串函数抓取简介
+			$start = strpos($main, '<span property="v:summary" class="">');
+			$end = strpos($main,'</span>',$start);
+			$summary = substr($main, $start + strlen('<span property="v:summary" class="">'),$end - $start - strlen('<span property="v:summary" class="">'));
+			if (substr($summary,1,1)!== " "){
+				$start = strpos($main, '<span property="v:summary">');
+			$end = strpos($main,'</span>',$start);
+			$summary = substr($main, $start + strlen('<span property="v:summary">'),$end - $start - strlen('<span property="v:summary">'));
+			}
+			$sql = "insert into info (title,year,director,writer,actor,type,mid,cover,initial,language,nickname,rating,imdb,official,douban,summary,photo,trailer) values('".mysql_escape_string($titleResult[1][0])."','"
 				.mysql_escape_string($yearResult[1][0])."','".mysql_escape_string(json_encode($directorResult))."','".mysql_escape_string(json_encode($writerResult))."','"
 				.mysql_escape_string(json_encode($actorResult))."','".mysql_escape_string(json_encode($typeResult))."','".mysql_escape_string($coverResult[2][0])."','"
 				.mysql_escape_string($coverResult[1][0])."','".mysql_escape_string(json_encode($initialResult))."','".mysql_escape_string($languageResult[1][0])."','"
 				.mysql_escape_string($nicknameResult[1][0])."','".mysql_escape_string($ratingResult[1][0])."','".mysql_escape_string($imdbResult[1][0])."','".mysql_escape_string($officialResult[1][0])."','"
-				.mysql_escape_string($movie_url)."');";
+				.mysql_escape_string($movie_url)."','".mysql_escape_string($summary)."','".mysql_escape_string(json_encode($photoResult))."','".mysql_escape_string(json_encode($trailerResult))."');";
 			$rs=mysql_db_query($this->mysql_database, $sql, $this->conn) or die('failed 84'.mysql_error());
 			return $main;
     	}

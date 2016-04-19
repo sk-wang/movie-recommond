@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title></title>
+	<script src="js/mui.min.js"></script>
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<style>
+		.mui-grid-view.mui-table-view {
+			top: 1px;
+			border-color: rgb(239,239,244);
+			background-color: rgb(239,239,244);
+		}
+		.movie_img{
+			height: 100%;
+		}
+		#select1 {
+				display: none;
+				position: absolute;
+				top: calc(23% + 74px);
+				left: 13%;
+				width: 8%;
+				height: 5%;
+				padding: 8px;
+				background-image: url(img/yes.png);
+				background-size: contain;
+				z-index: 1002;
+				overflow: auto;
+		}
+		#select2 {
+				display: none;
+				position: absolute;
+				top: calc(23% + 74px);
+				left: 46%;
+				width: 8%;
+				height: 5%;
+				padding: 8px;
+				background-image: url(img/yes.png);
+				background-size: contain;
+				z-index: 1002;
+				overflow: auto;
+		}
+		#select3 {
+				display: none;
+				position: absolute;
+				top: calc(23% + 74px);
+				left: 80%;
+				width: 8%;
+				height: 5%;
+				padding: 8px;
+				background-image: url(img/yes.png);
+				background-size: contain;
+				z-index: 1002;
+				overflow: auto;
+		}
+		#select4 {
+				display: none;
+				position: absolute;
+				top: calc(23% + 148px + 7% + 74px);
+				left: 13%;
+				width: 8%;
+				height: 5%;
+				padding: 8px;
+				background-image: url(img/yes.png);
+				background-size: contain;
+				z-index: 1002;
+				overflow: auto;
+		}
+		#select5 {
+				display: none;
+				position: absolute;
+				top: calc(23% + 148px + 7% + 74px);
+				left: 46%;
+				width: 8%;
+				height: 5%;
+				padding: 8px;
+				background-image: url(img/yes.png);
+				background-size: contain;
+				z-index: 1002;
+				overflow: auto;
+		}
+		#select6 {
+				display: none;
+				position: absolute;
+				top: calc(23% + 148px + 7% + 74px);
+				left: 80%;
+				width: 8%;
+				height: 5%;
+				padding: 8px;
+				background-image: url(img/yes.png);
+				background-size: contain;
+				z-index: 1002;
+				overflow: auto;
+		}
+	</style>
+	<script type="text/javascript" charset="UTF-8">
+		mui.init();
+	</script>
+</head>
+<body id="main_body">
+	<h1 style="text-align: center;margin-top: 15%;margin-bottom: 15%;width: 100%;">下面有您喜欢的电影吗
+		</h1>
+	<ul class="mui-table-view mui-grid-view mui-grid-9">
+		<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" style="border-color: rgb(239,239,244);">
+			<img class="movie_img" id="movie1_img" src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2247974249.jpg" />
+			<div id="movie1_title" class="mui-media-body">电影1</span>
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" style="border-color: rgb(239,239,244);">
+			<img class="movie_img" id="movie2_img" src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2247974249.jpg" />
+			<div id="movie2_title" class="mui-media-body">电影1
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" style="border-color: rgb(239,239,244);">
+			<img class="movie_img" id="movie3_img" src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2247974249.jpg" />
+			<div id="movie3_title" class="mui-media-body">电影1
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" style="border-color: rgb(239,239,244);">
+			<img class="movie_img" id="movie4_img" src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2247974249.jpg" />
+			<div id="movie4_title" class="mui-media-body">电影1
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" style="border-color: rgb(239,239,244);">
+			<img class="movie_img" id="movie5_img" src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2247974249.jpg" />
+			<div id="movie5_title" class="mui-media-body">电影1
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" style="border-color: rgb(239,239,244);">
+			<img class="movie_img" id="movie6_img" src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2247974249.jpg" />
+			<div id="movie6_title" class="mui-media-body">电影1
+			</div>
+		</li>
+	</ul>
+	<div class="mui-content" style="margin-top: 10%;">
+		<button type="button" class="mui-btn mui-btn-outlined" style="margin-left: 23%;border-color: #007AFF;color: #007AFF;">
+			下一批
+		</button>
+		<button type="button" class="mui-btn mui-btn-outlined" style="margin-left: 20%;border-color: #007AFF;color: #007AFF;">
+			选好啦
+		</button>
+	</div>
+	<div id="select1">	
+	</div>
+	<div id="select2">	
+	</div>
+	<div id="select3">	
+	</div>
+	<div id="select4">	
+	</div>
+	<div id="select5">	
+	</div>
+	<div id="select6">	
+	</div>
+	<script>
+	    //第一张图的事件
+		var is1 = 0;
+		document.getElementById('movie1_img').addEventListener('tap', function(event) {
+			if(is1 === 0){
+				document.getElementById("select1").style.display = "block";
+				is1 = 1;
+			}else{
+				document.getElementById("select1").style.display = "none";
+				is1 = 0;
+			}
+			
+		}, false);
+		document.getElementById('select1').addEventListener('tap', function(event) {
+				document.getElementById("select1").style.display = "none";
+				is1 = 0 
+		}, false);
+		//第二张图的事件
+		var is2 = 0;
+		document.getElementById('movie2_img').addEventListener('tap', function(event) {
+			if(is2 === 0){
+				document.getElementById("select2").style.display = "block";
+				is1 = 1;
+			}else{
+				document.getElementById("select2").style.display = "none";
+				is1 = 0;
+			}
+			
+		}, false);
+		document.getElementById('select2').addEventListener('tap', function(event) {
+				document.getElementById("select2").style.display = "none";
+				is2 = 0 
+		}, false);
+		//第三张图的事件
+		var is3 = 0;
+		document.getElementById('movie3_img').addEventListener('tap', function(event) {
+			if(is3 === 0){
+				document.getElementById("select3").style.display = "block";
+				is3 = 1;
+			}else{
+				document.getElementById("select3").style.display = "none";
+				is3 = 0;
+			}
+			
+		}, false);
+		document.getElementById('select3').addEventListener('tap', function(event) {
+				document.getElementById("select3").style.display = "none";
+				is3 = 0 
+		}, false);
+		//第四张图的事件
+		var is4 = 0;
+		document.getElementById('movie4_img').addEventListener('tap', function(event) {
+			if(is4 === 0){
+				document.getElementById("select4").style.display = "block";
+				is4 = 1;
+			}else{
+				document.getElementById("select4").style.display = "none";
+				is4 = 0;
+			}
+			
+		}, false);
+		document.getElementById('select4').addEventListener('tap', function(event) {
+				document.getElementById("select4").style.display = "none";
+				is4 = 0 
+		}, false);
+		//第五张图的事件
+		var is5 = 0;
+		document.getElementById('movie5_img').addEventListener('tap', function(event) {
+			if(is5 === 0){
+				document.getElementById("select5").style.display = "block";
+				is5 = 1;
+			}else{
+				document.getElementById("select5").style.display = "none";
+				is5 = 0;
+			}
+			
+		}, false);
+		document.getElementById('select5').addEventListener('tap', function(event) {
+				document.getElementById("select5").style.display = "none";
+				is5 = 0 
+		}, false);
+		//第六张图的事件
+		var is6 = 0;
+		document.getElementById('movie6_img').addEventListener('tap', function(event) {
+			if(is6 === 0){
+				document.getElementById("select6").style.display = "block";
+				is6 = 1;
+			}else{
+				document.getElementById("select6").style.display = "none";
+				is6 = 0;
+			}
+			
+		}, false);
+		document.getElementById('select6').addEventListener('tap', function(event) {
+				document.getElementById("select6").style.display = "none";
+				is6 = 0 
+		}, false);
+	</script>
+</body>
+</html>
