@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <style type="text/css">
+    	.slider_img{
+    		height: 200px;
+    	}
+    	.line1{
+    		text-indent:2em;
+    	}
+    </style>
+    <script type="text/javascript" charset="UTF-8">
+      	mui.init();
+      	mui("#slider").slider({interval: 5000});
+      	mui("#button_search").on('tap','#button_search',function(){
+      		alert('按了');
+      		console.log('按了');
+      	});
+    </script>
+</head>
+<body>
+	<div id="background_search" class="mui-content" style="background-color: #0062CC;height: 50px;">
+		<button id="button_search" style="text-align:left;border-color:#007AFF;background-color: #007AFF; height: 30px;margin-top: 10px;margin-bottom: 10px;margin-left: 10px;width: 85%;">
+			<span class="mui-icon-search mui-icon" style="font-size: 16px;color: #FFFFFF;">电影</span>
+		</button>
+		<span class="mui-icon mui-icon-mic" style="color: white;margin-top: 13px;margin-left: 2%;font-size: 25px;"></span>
+	</div>
+	<div id="slider" class="mui-slider">
+		<div class="mui-slider-group mui-slider-loop">
+			<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+			<div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#">
+					<img class="slider_img" src="img/scorll1.jpg">
+					<p class="mui-slider-title">浩劫之后其四：最后的不公正(Le dernier des injustes)</p>
+				</a>
+			</div>
+			<div class="mui-slider-item">
+				<a href="#">
+					<img class="slider_img" src="img/scorll2.jpg">
+					<p class="mui-slider-title">胖男孩快跑</p>
+				</a>
+			</div>
+			<div class="mui-slider-item">
+				<a href="#">
+					<img class="slider_img" src="img/scorll3.jpg">
+					<p class="mui-slider-title">国家保安(National Security)</p>
+				</a>
+			</div>
+			<div class="mui-slider-item">
+				<a href="#">
+					<img class="slider_img" src="img/scorll4.jpg">
+					<p class="mui-slider-title">千钧一发(Nick of Time)</p>
+				</a>
+			</div>
+			<div class="mui-slider-item">
+				<a href="#">
+					<img class="slider_img" src="img/scorll1.jpg">
+					<p class="mui-slider-title">浩劫之后其四：最后的不公正(Le dernier des injustes)</p>
+				</a>
+			</div>
+			<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+			<div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#">
+					<img class="slider_img" src="img/scorll2.jpg">
+					<p class="mui-slider-title">胖男孩快跑</p>
+				</a>
+			</div>
+		</div>
+		<div class="mui-slider-indicator mui-text-right">
+			<div class="mui-indicator mui-active"></div>
+			<div class="mui-indicator"></div>
+			<div class="mui-indicator"></div>
+			<div class="mui-indicator"></div>
+		</div>
+	</div>
+	<div class="mui-content" style="height: 30px;color: #A9A9A9;margin-left: 18px;margin-top: 9px;font-size: 15px;">
+		<span>热门评论</span>
+	</div>
+	<ul class="mui-table-view">
+		<li class="mui-table-view-cell" style="height: 170px;">
+			<a href="javascript:;">
+				<img class="mui-pull-right" style="width: 80px;margin-top: 12px;" src="img/comment1.jpg">
+				<div class="mui-media-body">
+					<h4 class="table_title" style="margin-top: 12px;">人间喜剧/人間喜劇</h4>
+					<p style="height: 5px;">&nbsp;</p>
+					<p class="line1">杜汶泽装北佬还挺有味儿的。片子有</p>
+					<p class="line2">那么股子彭浩翔的味儿，还是kuso流，不</p>
+					<p class="line3">错...</p>
+					<p style="height: 13px;">&nbsp;</p>
+					<p class="writer">by EG</p>
+				</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell" style="height: 170px;">
+			<a href="javascript:;">
+				<img class="mui-pull-right" style="width: 80px;margin-top: 12px;" src="img/comment2.jpg">
+				<div class="mui-media-body">
+					<h4 class="table_title" style="margin-top: 12px;">俺はまだ本気出してないだけ</h4>
+					<p style="height: 5px;">&nbsp;</p>
+					<p class="line1">废柴中年大叔的人生。女儿乖萌，父</p>
+					<p class="line2">亲硬气，好友是个温柔的老好人，问题青</p>
+					<p class="line3">年心善疲懒。堤真一脑洞大开时脑补的...</p>
+					<p style="height: 13px;">&nbsp;</p>
+					<p class="writer">by boliwawa</p>
+				</div>
+			</a>
+		</li>
+	</ul>
+	<script type="text/javascript" charset="UTF-8">
+		mui('#slider').on('tap', 'a', function() {
+			mui.openWindow({
+				url: 'content.html',
+				id: 'content',
+				styles: {
+					hardwareAccelerated: true
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		});
+	</script>
+</body>
+</html>

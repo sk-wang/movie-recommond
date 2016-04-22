@@ -7,7 +7,15 @@
     <script src="js/mui.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
     <script type="text/javascript" charset="utf-8">
-      	mui.init();
+      	mui.init({
+		preloadPages: [{
+			url: 'main_nav.html',
+			id: 'main_nav'
+		}, {
+			url: 'main.html',
+			id: 'main'
+		}]
+	});
     </script>
 </head>
 <body>

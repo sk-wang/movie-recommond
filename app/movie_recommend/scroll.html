@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/previewimage.css" rel="stylesheet"/>
+    <style>
+    .slider-img {
+    	margin-left: 10px;
+    	width: 400px;
+    	float: left;
+    }
+	body{
+		background-color: #FFFFFF;
+	}
+    </style>
+    <script type="text/javascript" charset="UTF-8">
+      	mui.init();
+    </script>
+    
+</head>
+<body>
+	<div style="width:2100px;overflow: auto;">
+		<img class="slider-img" src="img/photo1.jpg" data-preview-src="" data-preview-group="1" />
+		<img class="slider-img" src="img/photo2.jpg" data-preview-src="" data-preview-group="1" />
+		<img class="slider-img" src="img/photo3.jpg" data-preview-src="" data-preview-group="1" />
+		<img class="slider-img" src="img/photo4.jpg" data-preview-src="" data-preview-group="1" />
+		<img class="slider-img" src="img/photo5.jpg" data-preview-src="" data-preview-group="1" />
+	</div>	
+</body>
+<script src="js/mui.zoom.js"></script>
+<script src="js/mui.previewimage.js"></script>
+<script>
+	mui.previewImage();
+</script>
+</html>

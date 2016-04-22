@@ -6,7 +6,9 @@
 			"img/logo.png"
 		],
 		"refer": [
-			"recommend.html"
+			"recommend.html",
+			"main.html",
+			"main_nav.html"
 		]
 	},
 	"recommend.html": {
@@ -14,8 +16,77 @@
 			"js/mui.min.js",
 			"css/mui.min.css",
 			"img/cover.jpg",
-			"img/yes.png"
+			"img/yes.png",
+			"js/grid-select.js"
 		],
-		"refer": []
+		"refer": [
+			"main.html",
+			"main_nav.html"
+		]
+	},
+	"main.html": {
+		"resources": [
+			"img/comment2.jpg",
+			"img/scorll3.jpg",
+			"img/comment1.jpg",
+			"img/scorll1.jpg",
+			"img/scorll4.jpg",
+			"img/scorll2.jpg",
+			"fonts/mui.ttf",
+			"content.html",
+			"js/mui.min.js",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"content.html"
+		]
+	},
+	"main_nav.html": {
+		"resources": [
+			"main.html",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"main.html",
+			"my.html",
+			"recommend.html"
+		]
+	},
+	"content.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/iconfont.css",
+			"img/cover_background.jpg",
+			"fonts/iconfont.ttf",
+			"img/photo2.jpg",
+			"img/photo1.jpg",
+			"img/photo4.jpg",
+			"img/photo3.jpg",
+			"img/photo5.jpg",
+			"js/my_slider.js",
+			"js/iscroll.js",
+			"scroll.html",
+			"js/mui.previewimage.js",
+			"css/previewimage.css",
+			"js/mui.zoom.js"
+		],
+		"refer": [
+			"scroll.html"
+		]
+	},
+	"scroll.html": {
+		"resources": [
+			"img/photo4.jpg",
+			"img/photo2.jpg",
+			"img/photo3.jpg",
+			"img/photo5.jpg",
+			"img/photo1.jpg",
+			"js/mui.min.js",
+			"css/mui.min.css"
+		]
 	}
 }

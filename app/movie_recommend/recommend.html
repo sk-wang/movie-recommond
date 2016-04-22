@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -9,98 +10,65 @@
 	<style>
 		.mui-grid-view.mui-table-view {
 			top: 1px;
-			border-color: rgb(239,239,244);
-			background-color: rgb(239,239,244);
+			border-color: rgb(239, 239, 244);
+			background-color: rgb(239, 239, 244);
 		}
-		.movie_img{
+		
+		.movie_img {
 			height: 100%;
 		}
+		
+		.select {
+			display: none;
+			position: absolute;
+			width: 8%;
+			height: 5%;
+			padding: 8px;
+			background-image: url(img/yes.png);
+			background-size: contain;
+			background-repeat: no-repeat;
+			z-index: 1002;
+			overflow: auto;
+		}
+		
 		#select1 {
-				display: none;
-				position: absolute;
-				top: calc(23% + 74px);
-				left: 13%;
-				width: 8%;
-				height: 5%;
-				padding: 8px;
-				background-image: url(img/yes.png);
-				background-size: contain;
-				z-index: 1002;
-				overflow: auto;
+			top: calc(23% + 74px);
+			left: 13%;
 		}
+		
 		#select2 {
-				display: none;
-				position: absolute;
-				top: calc(23% + 74px);
-				left: 46%;
-				width: 8%;
-				height: 5%;
-				padding: 8px;
-				background-image: url(img/yes.png);
-				background-size: contain;
-				z-index: 1002;
-				overflow: auto;
+			top: calc(23% + 74px);
+			left: 46%;
 		}
+		
 		#select3 {
-				display: none;
-				position: absolute;
-				top: calc(23% + 74px);
-				left: 80%;
-				width: 8%;
-				height: 5%;
-				padding: 8px;
-				background-image: url(img/yes.png);
-				background-size: contain;
-				z-index: 1002;
-				overflow: auto;
+			top: calc(23% + 74px);
+			left: 80%;
 		}
+		
 		#select4 {
-				display: none;
-				position: absolute;
-				top: calc(23% + 148px + 7% + 74px);
-				left: 13%;
-				width: 8%;
-				height: 5%;
-				padding: 8px;
-				background-image: url(img/yes.png);
-				background-size: contain;
-				z-index: 1002;
-				overflow: auto;
+			top: calc(23% + 148px + 7% + 74px);
+			left: 13%;
 		}
+		
 		#select5 {
-				display: none;
-				position: absolute;
-				top: calc(23% + 148px + 7% + 74px);
-				left: 46%;
-				width: 8%;
-				height: 5%;
-				padding: 8px;
-				background-image: url(img/yes.png);
-				background-size: contain;
-				z-index: 1002;
-				overflow: auto;
+			top: calc(23% + 148px + 7% + 74px);
+			left: 46%;
 		}
+		
 		#select6 {
-				display: none;
-				position: absolute;
-				top: calc(23% + 148px + 7% + 74px);
-				left: 80%;
-				width: 8%;
-				height: 5%;
-				padding: 8px;
-				background-image: url(img/yes.png);
-				background-size: contain;
-				z-index: 1002;
-				overflow: auto;
+			top: calc(23% + 148px + 7% + 74px);
+			left: 80%;
 		}
 	</style>
 	<script type="text/javascript" charset="UTF-8">
-		mui.init();
+	mui.init();
 	</script>
 </head>
+
 <body id="main_body">
-	<h1 style="text-align: center;margin-top: 15%;margin-bottom: 15%;width: 100%;">下面有您喜欢的电影吗
-		</h1>
+	<h1 style="text-align: center;margin-top: 15%;margin-bottom: 15%;width: 100%;font-size:200%">下面有您喜欢的电影吗
+	</h1>
 	<ul class="mui-table-view mui-grid-view mui-grid-9">
 		<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" style="border-color: rgb(239,239,244);">
 			<img class="movie_img" id="movie1_img" src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2247974249.jpg" />
@@ -134,122 +102,153 @@
 		</li>
 	</ul>
 	<div class="mui-content" style="margin-top: 10%;">
-		<button type="button" class="mui-btn mui-btn-outlined" style="margin-left: 23%;border-color: #007AFF;color: #007AFF;">
-			下一批
-		</button>
-		<button type="button" class="mui-btn mui-btn-outlined" style="margin-left: 20%;border-color: #007AFF;color: #007AFF;">
-			选好啦
-		</button>
+		<button id="button_change" type="button" class="mui-btn mui-btn-outlined" style="margin-left: 23%;border-color: #007AFF;color: #007AFF;">
+		换一批
+	</button>
+		<button id="button_finish" type="button" class="mui-btn mui-btn-outlined" style="margin-left: 20%;border-color: #007AFF;color: #007AFF;">
+		选好啦
+	</button>
 	</div>
-	<div id="select1">	
+	<div class="select" id="select1">
 	</div>
-	<div id="select2">	
+	<div class="select" id="select2">
 	</div>
-	<div id="select3">	
+	<div class="select" id="select3">
 	</div>
-	<div id="select4">	
+	<div class="select" id="select4">
 	</div>
-	<div id="select5">	
+	<div class="select" id="select5">
 	</div>
-	<div id="select6">	
+	<div class="select" id="select6">
 	</div>
-	<script>
-	    //第一张图的事件
-		var is1 = 0;
-		document.getElementById('movie1_img').addEventListener('tap', function(event) {
-			if(is1 === 0){
-				document.getElementById("select1").style.display = "block";
-				is1 = 1;
-			}else{
-				document.getElementById("select1").style.display = "none";
-				is1 = 0;
-			}
-			
-		}, false);
-		document.getElementById('select1').addEventListener('tap', function(event) {
-				document.getElementById("select1").style.display = "none";
-				is1 = 0 
-		}, false);
-		//第二张图的事件
-		var is2 = 0;
-		document.getElementById('movie2_img').addEventListener('tap', function(event) {
-			if(is2 === 0){
-				document.getElementById("select2").style.display = "block";
-				is1 = 1;
-			}else{
-				document.getElementById("select2").style.display = "none";
-				is1 = 0;
-			}
-			
-		}, false);
-		document.getElementById('select2').addEventListener('tap', function(event) {
-				document.getElementById("select2").style.display = "none";
-				is2 = 0 
-		}, false);
-		//第三张图的事件
-		var is3 = 0;
-		document.getElementById('movie3_img').addEventListener('tap', function(event) {
-			if(is3 === 0){
-				document.getElementById("select3").style.display = "block";
-				is3 = 1;
-			}else{
-				document.getElementById("select3").style.display = "none";
-				is3 = 0;
-			}
-			
-		}, false);
-		document.getElementById('select3').addEventListener('tap', function(event) {
-				document.getElementById("select3").style.display = "none";
-				is3 = 0 
-		}, false);
-		//第四张图的事件
-		var is4 = 0;
-		document.getElementById('movie4_img').addEventListener('tap', function(event) {
-			if(is4 === 0){
-				document.getElementById("select4").style.display = "block";
-				is4 = 1;
-			}else{
-				document.getElementById("select4").style.display = "none";
-				is4 = 0;
-			}
-			
-		}, false);
-		document.getElementById('select4').addEventListener('tap', function(event) {
-				document.getElementById("select4").style.display = "none";
-				is4 = 0 
-		}, false);
-		//第五张图的事件
-		var is5 = 0;
-		document.getElementById('movie5_img').addEventListener('tap', function(event) {
-			if(is5 === 0){
-				document.getElementById("select5").style.display = "block";
-				is5 = 1;
-			}else{
-				document.getElementById("select5").style.display = "none";
-				is5 = 0;
-			}
-			
-		}, false);
-		document.getElementById('select5').addEventListener('tap', function(event) {
-				document.getElementById("select5").style.display = "none";
-				is5 = 0 
-		}, false);
-		//第六张图的事件
-		var is6 = 0;
-		document.getElementById('movie6_img').addEventListener('tap', function(event) {
-			if(is6 === 0){
-				document.getElementById("select6").style.display = "block";
-				is6 = 1;
-			}else{
-				document.getElementById("select6").style.display = "none";
-				is6 = 0;
-			}
-			
-		}, false);
-		document.getElementById('select6').addEventListener('tap', function(event) {
-				document.getElementById("select6").style.display = "none";
-				is6 = 0 
-		}, false);
-	</script>
 </body>
+<script>
+	function change() {
+		var imgs = document.getElementsByClassName('movie_img');
+		var titles = document.getElementsByClassName('mui-media-body');
+		for (i = 0; i < imgs.length; i++) {
+			imgs[i].style.opacity = opacity;
+			titles[i].style.opacity = opacity;
+		}
+		opacity += 0.05;
+		if (opacity <= 1.0) {
+			setTimeout(change, 50);
+		} else {
+			opacity = 0;
+		}
+	}
+</script>
+<script>
+	var is1 = 0;
+	document.getElementById('movie1_img').addEventListener('tap', function(event) {
+		if (is1 === 0) {
+			document.getElementById("select1").style.display = "block";
+			is1 = 1;
+		} else {
+			document.getElementById("select1").style.display = "none";
+			is1 = 0;
+		}
+	}, false);
+	document.getElementById('select1').addEventListener('tap', function(event) {
+		document.getElementById("select1").style.display = "none";
+		is1 = 0
+	}, false);
+	//第二张图的事件
+	var is2 = 0;
+	document.getElementById('movie2_img').addEventListener('tap', function(event) {
+		if (is2 === 0) {
+			document.getElementById("select2").style.display = "block";
+			is1 = 1;
+		} else {
+			document.getElementById("select2").style.display = "none";
+			is1 = 0;
+		}
+	}, false);
+	document.getElementById('select2').addEventListener('tap', function(event) {
+		document.getElementById("select2").style.display = "none";
+		is2 = 0
+	}, false);
+	//第三张图的事件
+	var is3 = 0;
+	document.getElementById('movie3_img').addEventListener('tap', function(event) {
+		if (is3 === 0) {
+			document.getElementById("select3").style.display = "block";
+			is3 = 1;
+		} else {
+			document.getElementById("select3").style.display = "none";
+			is3 = 0;
+		}
+	}, false);
+	document.getElementById('select3').addEventListener('tap', function(event) {
+		document.getElementById("select3").style.display = "none";
+		is3 = 0
+	}, false);
+	//第四张图的事件
+	var is4 = 0;
+	document.getElementById('movie4_img').addEventListener('tap', function(event) {
+		if (is4 === 0) {
+			document.getElementById("select4").style.display = "block";
+			is4 = 1;
+		} else {
+			document.getElementById("select4").style.display = "none";
+			is4 = 0;
+		}
+	}, false);
+	document.getElementById('select4').addEventListener('tap', function(event) {
+		document.getElementById("select4").style.display = "none";
+		is4 = 0
+	}, false);
+	//第五张图的事件
+	var is5 = 0;
+	document.getElementById('movie5_img').addEventListener('tap', function(event) {
+		if (is5 === 0) {
+			document.getElementById("select5").style.display = "block";
+			is5 = 1;
+		} else {
+			document.getElementById("select5").style.display = "none";
+			is5 = 0;
+		}
+	}, false);
+	document.getElementById('select5').addEventListener('tap', function(event) {
+		document.getElementById("select5").style.display = "none";
+		is5 = 0
+	}, false);
+	//第六张图的事件
+	var is6 = 0;
+	document.getElementById('movie6_img').addEventListener('tap', function(event) {
+		if (is6 === 0) {
+			document.getElementById("select6").style.display = "block";
+			is6 = 1;
+		} else {
+			document.getElementById("select6").style.display = "none";
+			is6 = 0;
+		}
+	}, false);
+	document.getElementById('select6').addEventListener('tap', function(event) {
+		document.getElementById("select6").style.display = "none";
+		is6 = 0
+	}, false);
+	//换一批动画
+	var opacity = 0;
+	document.getElementById('button_change').addEventListener('tap', function(event) {
+		var selects = document.getElementsByClassName('select');
+		for (i = 0; i < selects.length; i++) {
+			selects[i].style.display = 'none';
+		}
+		change();
+	}, false);
+	document.getElementById('button_finish').addEventListener('tap', function(event) {
+		mui.openWindow({
+			url: 'main_nav.html',
+			id: 'main_nav',
+			styles:{
+				hardwareAccelerated:true
+			},
+			waiting: {
+				autoShow: false
+			}
+		});
+	}, false);
+</script>
+
 </html>
