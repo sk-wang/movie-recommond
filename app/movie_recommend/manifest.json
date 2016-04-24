@@ -266,7 +266,10 @@
 					"scroll.html",
 					"js/mui.previewimage.js",
 					"css/previewimage.css",
-					"js/mui.zoom.js"
+					"js/mui.zoom.js",
+					"css/popover.css",
+					"like.html",
+					"img/cover.jpg"
 				],
 				"refer": [],
 				"priority": 0

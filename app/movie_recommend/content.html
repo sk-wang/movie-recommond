@@ -50,6 +50,16 @@
 		width: 400px;
 		float: left;
 	}
+	#comment{
+		list-style:none;
+		padding-left:5%;
+		padding-right:5%;
+	}
+	.content{
+		color: #000000;
+		line-height: 150%;
+		font-size: 15px;
+	}
     </style>
     <script type="text/javascript" charset="UTF-8">
 	mui.init({
@@ -61,15 +71,15 @@
 	</script>
 </head>
 <body id="main_body">
-	<div class="mui-content" style="text-align: center;background-image: url(img/cover_background.jpg);height:230px">
+	<div class="mui-content" id="cover_background" style="position:fixed;z-index:-9999;top:0px;width:100%;text-align: center;background-image: url(img/cover_background.jpg);height:230px">
 		<img id="cover" src="https://img3.doubanio.com/view/movie_poster_cover/spst/public/p1568293914.jpg"/>
 	</div>
 	<header id="header" class="mui-bar mui-bar-nav" style="background: rgba(255,255,255,0);">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #FFFFFF;"></a>
-		<h1 id="nav_title" class="mui-title" style="opacity: 0;">导航栏</h1>
+		<h1 id="nav_title" class="mui-title" style="text-align:left;opacity: 0;color: #FFFFFF;">国家保安</h1>
 		<a class="mui-icon iconfont icon-share mui-pull-right" style="color: #FFFFFF;"></a>
 	</header> 
-	<div class="mui-content" style="padding-top:10px;background-color: #FFFFFF">
+	<div class="mui-content" style="margin-top:230px;padding-top:10px;background-color: #FFFFFF">
 		<span id="title" style="font-weight:900;margin-left: 3%;">国家保安</span>
 		<div id="star" style="margin-left: 3%;">
 			<div id="star1" class="mui-icon mui-icon-star-filled star"></div>
@@ -82,7 +92,7 @@
 	</div>
 	<div class="mui-content" style="padding-top:0px;background-color: #FFFFFF;">
 		<a class="mui-icon mui-icon-arrowright mui-pull-right" style="color: #A9A9A9;"></a>
-		<div id="info" style="margin-left: 3%;">2003-01-17 / 埃里克·罗伯茨 / 马丁·劳伦斯 / 史蒂夫·茨恩 / 美国 / 丹尼斯·杜根 / 88 分钟 / 国家保安 / 动作 / 喜剧 / 犯罪 / 惊悚 / David Ronn / Jay Scherick / 英语</div>
+		<div id="info" style="margin-left: 3%;font-size: 11px;line-height: 120%;">2003-01-17 / 埃里克·罗伯茨 / 马丁·劳伦斯 / 史蒂夫·茨恩 / 美国 / 丹尼斯·杜根 / 88 分钟 / 国家保安 / 动作 / 喜剧 / 犯罪 / 惊悚 / David Ronn / Jay Scherick / 英语</div>
 	</div>
 	<div id="button_area" style="padding-top:20px;padding-bottom:10px;background-color: #FFFFFF;">
 		<button id="button_want" type="button" class="mui-btn mui-btn-outlined" style="font-weight:800;margin-left: 5%;border-color: #FFC412;color: #FFC412;width:42%;">
@@ -95,18 +105,42 @@
 	<div class="mui-content" style="padding-top:0px;height:1px;background-color: #efeff4;margin-right:10px;margin-left:10px;">
 	</div>
 	<div class="mui-content" style="padding-top:17px;background-color: #FFFFFF;">
-		<span style="color: #A9A9A9;margin-left: 3%;font-size: 13px;">简介<span>
-		<div id="summary" style="color: #000000;margin-left: 3%;margin-right: 3%;text-indent: 2em;overflow: hidden;">尽管厄尔（马丁·劳伦斯 Martin Lawrence 饰）身强体壮孔武有力，但暴躁的性格和简单的头脑让他离做个好警察的目标越来越远，在又一次闯下大祸之后，他成为了一名小保安。一次交通检查中，厄尔遇见了警察汉克（史蒂夫·茨恩 Steve Zahn 饰），脾性迥异的两人为了一点小事大打出手，导致汉克更因为厄尔的小小手段丢掉了工作也成为了一名保安。厄尔怎么也不会想到的是，正是他的手段让汉克成为了自己的同事，他们不仅在一座大厦里工作，甚至被编排在了一起做了搭档，充满了争吵的生活可想而知。                                    <br />                                　　偶然中，厄尔和汉克发现了一个牵连到警方高层的特大走私团伙，秉着善良和正义的本性，两人决定不顾上级压力，誓要将真相查个水落石出，而在此过程中，威胁和危险不断的向两人靠近着。                        </div>
+		<span style="color: #A9A9A9;margin-left: 3%;font-size: 15px;">简介<span>
+		<div id="summary" style="color: #000000;margin-left: 3%;margin-right: 3%;text-indent: 2em;overflow: hidden;font-size: 15px;">尽管厄尔（马丁·劳伦斯 Martin Lawrence 饰）身强体壮孔武有力，但暴躁的性格和简单的头脑让他离做个好警察的目标越来越远，在又一次闯下大祸之后，他成为了一名小保安。一次交通检查中，厄尔遇见了警察汉克（史蒂夫·茨恩 Steve Zahn 饰），脾性迥异的两人为了一点小事大打出手，导致汉克更因为厄尔的小小手段丢掉了工作也成为了一名保安。厄尔怎么也不会想到的是，正是他的手段让汉克成为了自己的同事，他们不仅在一座大厦里工作，甚至被编排在了一起做了搭档，充满了争吵的生活可想而知。                                    <br />                                　　偶然中，厄尔和汉克发现了一个牵连到警方高层的特大走私团伙，秉着善良和正义的本性，两人决定不顾上级压力，誓要将真相查个水落石出，而在此过程中，威胁和危险不断的向两人靠近着。                        </div>
 	</div>
 	<div id="more_content" class="mui-content" style="text-align:center;padding-top:0px;background-color: #FFFFFF;">
-		<a id="more" style="color:red;font-size: 13px">更多</a>
+		<a id="more" style="color:red;font-size: 15px">更多</a>
 	</div>
 	<div class="mui-content" style="padding-top:17px;background-color: #FFFFFF;">
-		<span style="color: #A9A9A9;margin-left: 3%;font-size: 13px;">预告片/剧照<span>
+		<span style="color: #A9A9A9;margin-left: 3%;font-size: 15px;">预告片/剧照<span>
 	</div>
 	<div id="photo_scorll" class="mui-content" style="overflow:scroll;-webkit-overflow-scrolling: touch;padding-top: 0px;background: #FFFFFF;">
 		<iframe src="scroll.html" style="width: 100%;height: 230px;border:none;">
 		</iframe>
+	</div>
+	<div class="mui-content" style="padding-top:17px;background-color: #FFFFFF;">
+		<span style="color: #A9A9A9;margin-left: 3%;font-size: 15px;">评论<span>
+	</div>
+	<ul id="comment" >
+		<li class="comment_cell" style="height: auto;">
+			<span class="uid" style="margin-top: 12px;font-weight: 900;color: #000000;">new4new4</span>
+			<span class="comment-star">
+				<div class="mui-icon mui-icon-star-filled star"></div>
+				<div class="mui-icon mui-icon-star-filled star"></div>
+				<div class="mui-icon mui-icon-star-filled star"></div>
+				<div class="mui-icon mui-icon-star star"></div>
+				<div class="mui-icon mui-icon-star star"></div>
+			</span>
+			<h5 class="content">三星半。中规中矩之作，摄影漂亮。没什么明显漏洞，也没有特别亮点。这种政治正确主角伟光正的电影，抡长了拍还挺无聊的。最喜欢的片段就是汉克斯坐在地铁上，周围人（特别是一个老太太）看报后对他前后不同的态度反映。阿贝尔被押解送时，汉克斯站在原地，看到他坐上后座，那个微妙的表情和暗影。</h5>
+			<h5 class="date" style="text-align: right;margin-right: 2%;">4-15</h5>
+		</li>
+	</ul>
+	<div id="popover" class="mui-popover" style="position:fixed;top:200px;left:5%;width: 91%;height: 300px;background-color: #FFFFFF;padding-left: 0;">
+	  	<h4 style="text-align: center;margin-top: 20px;">喜欢此影片的还喜欢</h4>
+	  	<div id="photo_scorll" class="mui-content" style="overflow:scroll;-webkit-overflow-scrolling: touch;padding-top: 0px;background: #FFFFFF;margin-top: 20px;">
+			<iframe id="like" src="like.html" style="width: 100%;height: 230px;border:none;margin-right: 0px;">
+			</iframe>
+		</div>
 	</div>
 	<script type="text/javascript" charset="UTF-8">
 		var ismore = 0;
@@ -114,6 +148,10 @@
 		var summary = document.getElementById('summary');
 		var body = document.getElementById('main_body');
 		var scorll = document.getElementById('photo_scorll');
+		var like = document.getElementById('button_like');
+		var like_page = document.getElementById("like");
+		var header = document.getElementById('header');
+		var background = document.getElementById('cover_background');
 		if(summary.offsetHeight < 80){
 			more.style.display = "none";
 			summary.style.height = "auto";
@@ -131,7 +169,52 @@
       			ismore = 0;
       		}
       	},false);
-</script>
-
+      	like.addEventListener('tap',function(event){
+      		like_page.contentWindow.imgCount();
+      		mui('#popover').popover('toggle');
+      		//like_page.style.width=(document.getElementById("popover").offsetWidth - 1) + 'px';
+      	}, false);
+      	window.onscroll = function() {
+      		var t = document.body.scrollTop;
+      		background.style.top = -t/2 + 'px';
+      		if(t>=0 && t<21){
+      			header.style.background = "rgba(66,189,86,0)";
+      			document.getElementById('nav_title').style.opacity = 0;
+      		}else if(t>=21 && t<42){
+      			header.style.background = "rgba(66,189,86,0.1)";
+      			document.getElementById('nav_title').style.opacity = 0;
+      		}else if(t>=42 && t<63){
+      			header.style.background = "rgba(66,189,86,0.2)";
+      			document.getElementById('nav_title').style.opacity = 0;
+      		}else if(t>=63 && t<84){
+      			header.style.background = "rgba(66,189,86,0.3)";
+      			document.getElementById('nav_title').style.opacity = 0;
+      		}else if(t>=84 && t<105){
+      			header.style.background = "rgba(66,189,86,0.4)";
+      			document.getElementById('nav_title').style.opacity = 0;
+      		}else if(t>=105 && t<126){
+      			header.style.background = "rgba(66,189,86,0.5)";
+      			document.getElementById('nav_title').style.opacity = 0;
+      		}else if(t>=126 && t<147){
+      			header.style.background = "rgba(66,189,86,0.6)";
+      			document.getElementById('nav_title').style.opacity = 0;
+      		}else if(t>=147 && t<168){
+      			header.style.background = "rgba(66,189,86,0.7)";
+      			document.getElementById('nav_title').style.opacity = 0;
+      		}else if(t>=168 && t<189){
+      			header.style.background = "rgba(66,189,86,0.8)";
+      			document.getElementById('nav_title').style.opacity = 0;
+      		}else if(t>=189 && t<210){
+      			header.style.background = "rgba(66,189,86,0.9)";
+      			document.getElementById('nav_title').style.opacity = 0;
+      		}else if(t>=210 && t<220){
+      			header.style.background = "rgba(66,189,86,1)";
+      			document.getElementById('nav_title').style.opacity = 0;
+      		}else{
+      			header.style.background = "rgba(66,189,86,1)";
+      			document.getElementById('nav_title').style.opacity = 1;
+      		}
+      	}
+	</script>
 </body>
 </html>

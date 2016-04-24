@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <style>
+    .slider-img{
+    		margin-left: 10px;
+    }
+    #movie_slider{
+    		list-style: none;
+    		padding-left:0;
+    		padding-right:0;
+    }
+    li{
+    		float: left;
+    }
+	body{
+		background-color: #FFFFFF;
+	}
+    </style>
+    <script type="text/javascript" charset="UTF-8">
+      	mui.init();
+      	
+    </script>
+</head>
+<body>
+	<ul id="movie_slider">
+		<li>
+			<img class="slider-img" src="img/cover.jpg" />
+			<h4 style="text-align: center;">影片1</h4>
+		</li>
+		<li>
+			<img class="slider-img" src="img/cover.jpg" />
+			<h4 style="text-align: center;">影片1</h4>
+		</li>
+		<li>
+			<img class="slider-img" src="img/cover.jpg" />
+			<h4 style="text-align: center;">影片1</h4>
+		</li>
+		<li>
+			<img class="slider-img" src="img/cover.jpg" />
+			<h4 style="text-align: center;">影片1</h4>
+		</li>
+		<li>
+			<img class="slider-img" src="img/cover.jpg" />
+			<h4 style="text-align: center;">影片1</h4>
+		</li>
+	</ul>
+</body>
+<script type="text/javascript">
+	function imgCount(){
+		var slider = document.getElementById('movie_slider');
+  		var width = 0;
+  		var imgs = document.getElementsByClassName('slider-img');
+  		for(i=0;i<imgs.length;i++){
+  			width+=(imgs[i].offsetWidth+10);
+  		}
+		slider.style.width = width + 'px';
+	}
+</script>
+</html>
