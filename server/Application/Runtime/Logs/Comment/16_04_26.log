@@ -1,0 +1,114 @@
+[ 2016-04-26T16:17:31+08:00 ] 127.0.0.1 /Comment
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000249s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000623s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000660s ]
+ERR: 无法加载控制器:Index
+
+[ 2016-04-26T16:18:04+08:00 ] 127.0.0.1 /Comment
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000358s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000474s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000524s ]
+ERR: 无法加载控制器:Index
+
+[ 2016-04-26T16:18:05+08:00 ] 127.0.0.1 /Comment
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000237s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000295s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000325s ]
+ERR: 无法加载控制器:Index
+
+[ 2016-04-26T17:00:49+08:00 ] 127.0.0.1 /Comment/Comment?title=%E9%97%B4%E8%B0%8D
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000760s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000712s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000749s ]
+ERR: 无法加载控制器:Comment
+
+[ 2016-04-26T17:01:16+08:00 ] 127.0.0.1 /Comment/Comment?title=%E9%97%B4%E8%B0%8D
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000265s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000439s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000491s ]
+SQL: SHOW COLUMNS FROM `movie_comment` [ RunTime:0.0019s ]
+SQL: SHOW COLUMNS FROM `movie_comment` [ RunTime:0.0017s ]
+SQL: SELECT * FROM `movie_comment` WHERE `mname` LIKE '%间谍%'  [ RunTime:1.1801s ]
+
+[ 2016-04-26T17:01:21+08:00 ] 127.0.0.1 /Comment?title=%E9%97%B4%E8%B0%8D
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000023s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000562s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000532s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000583s ]
+ERR: 无法加载控制器:Index
+
+[ 2016-04-26T17:01:53+08:00 ] 127.0.0.1 /Comment?title=%E9%97%B4%E8%B0%8D
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000381s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000318s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000352s ]
+ERR: 无法加载控制器:Index
+
+[ 2016-04-26T17:01:55+08:00 ] 127.0.0.1 /Comment?title=%E9%97%B4%E8%B0%8D
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000232s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000262s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000291s ]
+ERR: 无法加载控制器:Index
+
+[ 2016-04-26T17:01:56+08:00 ] 127.0.0.1 /Comment?title=%E9%97%B4%E8%B0%8D
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000020s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000416s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000568s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000641s ]
+ERR: 无法加载控制器:Index
+
+[ 2016-04-26T17:02:17+08:00 ] 127.0.0.1 /Comment?title=%E9%97%B4%E8%B0%8D
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000019s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000532s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000702s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000776s ]
+SQL: SHOW COLUMNS FROM `movie_comment` [ RunTime:0.0013s ]
+SQL: SHOW COLUMNS FROM `movie_comment` [ RunTime:0.0009s ]
+SQL: SELECT * FROM `movie_comment` WHERE `mname` LIKE '%间谍%'  [ RunTime:1.1173s ]
+
+[ 2016-04-26T17:02:42+08:00 ] 127.0.0.1 /Comment/Search?title=%E9%97%B4%E8%B0%8D
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000014s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000402s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000633s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000701s ]
+ERR: 无法加载控制器:Search
+
+[ 2016-04-26T17:02:48+08:00 ] 127.0.0.1 /Comment/Index/Search?title=%E9%97%B4%E8%B0%8D
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000017s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000364s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000339s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000414s ]
+SQL: SHOW COLUMNS FROM `movie_comment` [ RunTime:0.0015s ]
+SQL: SHOW COLUMNS FROM `movie_comment` [ RunTime:0.0010s ]
+SQL: SELECT * FROM `movie_comment` WHERE `mname` LIKE '%间谍%'  [ RunTime:0.6924s ]
+
